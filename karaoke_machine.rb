@@ -7,13 +7,7 @@ class KaraokeMachine
   def initialize(melody)
     @store = []
     @melody = melody.gsub(/[CDFGA]#/){ |x| x[0].downcase }.each_char do |note|
-      if note == '|'
-        @store << '|'
-      elsif note == ' '
-        @store << ' '
-      else
-        @store << MUSICNOTES.index(note)
-      end
+       MUSICNOTES.index(note) ? @store << MUSICNOTES.index(note) :  @store << note
     end
   end
 
@@ -21,11 +15,8 @@ class KaraokeMachine
     @store.each_with_object([]) do |num, arr|
       if num.is_a? Integer
         change = num + amount
-        if change > 11 || change < -12
-          change = change % 12
-        end
+        (change > 11 || change < -12) ? change = change % 12 : change = num + amount 
         arr << MUSICNOTES[change]
-        #arr << change
       else
         arr << num
       end
