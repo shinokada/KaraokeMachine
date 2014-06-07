@@ -29,7 +29,7 @@ class KaraokeMachine
       else
         arr << num
       end
-    end.join.gsub(/c/, 'C#').gsub(/d/,'D#').gsub(/f/,'F#').gsub(/g/,'G#').gsub(/a/,'A#')
+    end.join.gsub(/[cdfga]/){ |x| x.upcase.concat('#')}
   end
 end
 
